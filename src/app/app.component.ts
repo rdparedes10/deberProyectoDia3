@@ -17,11 +17,14 @@ export class AppComponent {
   constructor(httpClient: HttpClient) {
     httpClient.get<any>(this.urlData).subscribe(data => {
         console.log(data);
-        let addTask:Task = new Task(); 
-        let totalTasks = this.tasks.length;
-        addTask.id = totalTasks;
-        addTask.description = task;
-        addTask.state = STATES.ACTIVO;
+        for(var i= 0 ; i<data.length;i++){
+          let addTask:Task = new Task(); 
+          let totalTasks = this.tasks.length;
+          addTask.id = totalTasks;
+          addTask.description = data[i];
+          addTask.state = STATES.ACTIVO;
+          this.tasks.push(addTask);
+        }
     });
   }
 
@@ -56,6 +59,10 @@ export class AppComponent {
   showCompleteTask(){
     this.tasks = this.tasks.filter(item => item.state === STATES.COMPLETADO);
     console.log("Complete");
+  }
+  deleteCompleteTask(){
+    this.tasks = this.tasks.filter(item => item.state !== STATES.COMPLETADO);
+   this.backupTask();
   }
   backupTask(){
     this.tasksBackup = this.tasks;

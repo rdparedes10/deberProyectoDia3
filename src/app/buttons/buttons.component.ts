@@ -8,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class ButtonsComponent implements OnInit {
   @Output() clickAll:EventEmitter<string> = new EventEmitter<string>();
   @Output() clickComplete:EventEmitter<string> = new EventEmitter<string>();
+  @Output() clickDeleteComplete:EventEmitter<string> = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
@@ -17,6 +18,9 @@ export class ButtonsComponent implements OnInit {
   }
   showCompleteTask(){
     this.clickComplete.emit("complete");
+  }
+  deleteCompleteTask(){
+    this.clickDeleteComplete.emit("deleteComplete");
   }
 
 }
